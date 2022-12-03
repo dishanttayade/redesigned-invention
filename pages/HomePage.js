@@ -7,12 +7,22 @@ import Link from "next/link";
 const HomePage = () => {
   return (
     <div>
+<<<<<<< HEAD
       <div className="bg-homebg h-screen bg-cover">
         <div className="flex place-content-center justify-between">
           {/* <ModelViewer  modelPath ={'http://127.0.0.1:5500/pages/assets/scene.gltf'} scale={3} /> */}
           <div className="grid place-content-center pr-20 pl-10 flex flex-col justify-around">
             {/* <img className="h-96 w-96 m-10"  src="https://tuk-cdn.s3.amazonaws.com/can-uploader/header-1-svg1.svg" alt="circle" /> */}
             {/* <img src='https://media.sketchfab.com/models/3b8be89e01514b48bd7a4e52582f6d50/thumbnails/e5f3bafa946146a1b27697286cf1c1b9/2bb365efda3f4552b6d67bad41b57f05.jpeg' />
+=======
+      <div className='bg-homebg h-screen bg-cover'>
+              <Header loggedIn={false}  />
+        <div className='flex place-content-center justify-between'>
+          <ModelViewer  modelPath ={'http://127.0.0.1:5500/pages/assets/scene.gltf'} scale={3} />
+          <div className='grid place-content-center pr-20 pl-10 flex flex-col justify-around'>
+              {/* <img className="h-96 w-96 m-10"  src="https://tuk-cdn.s3.amazonaws.com/can-uploader/header-1-svg1.svg" alt="circle" /> */}
+              {/* <img src='https://media.sketchfab.com/models/3b8be89e01514b48bd7a4e52582f6d50/thumbnails/e5f3bafa946146a1b27697286cf1c1b9/2bb365efda3f4552b6d67bad41b57f05.jpeg' />
+>>>>>>> 734d990508249de2bc1cee8aa8ac730a664bae15
               <div className="sketchfab-embed-wrapper"> <iframe autoplay src="https://sketchfab.com/models/3b8be89e01514b48bd7a4e52582f6d50/embed"> </iframe> </div> */}
             <div className="text-7xl p-10 text-center">
               Real Estate For Every Indian
