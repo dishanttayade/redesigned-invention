@@ -9,7 +9,7 @@ const UserProfile = () => {
     "zxfghjkp",
   ];
   return (
-    <section className="h-full gradient-form bg-gray-200 md:h-screen">
+    <section className="h-full gradient-form bg-orange-300 md:h-screen">
         <Header loggedIn={true} />
       <div className="container py-12 px-6 h-full">
         <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
