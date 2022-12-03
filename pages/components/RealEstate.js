@@ -4,6 +4,9 @@ import React from 'react'
 const RealEstate = (props) => {
     // const Estate = props.description
     const estate =  {'id' : '123we', 'projectname' :'SomeName','location' :'The location over there', 'description': 'ygui9uygtfccguhiopijuyfdghjk' }
+
+    const doesown = false
+
   return (
     <div className='px-10 pt-10 py-2 m-10 border border-black float-right'>
         <div className='pb-5'>

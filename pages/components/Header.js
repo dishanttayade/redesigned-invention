@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "next/image";
 import Link from "next/link";
 import { ethers } from "ethers";
 
 function Header() {
   const [show, setShow] = useState(false);
+  const [connectedAccount, setConnectedAccount] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
   const [socialLogin, setSocialLogin] = useState(null);
   const [chainId, setChainId] = useState(1);
@@ -21,22 +22,32 @@ function Header() {
     return socialLogin;
   }
 
-  async function login() {
-    try {
+  useEffect(() => {
+    (async () => {
       let socialLogin = await initWallet();
-      if (!socialLogin.provider) {
-        // first time login
-		socialLogin.walletDiv.setAttribute('background-color', 'white')
-		console.log(socialLogin)
-        socialLogin.showWallet();
-      } else {
-        // if provider is present
+      if (socialLogin.provider) {
         setIsLogin(true);
         const provider = new ethers.providers.Web3Provider(
           socialLogin.provider
         );
         const accounts = await provider.listAccounts();
-        console.log("EOA address", accounts);
+        setConnectedAccount(accounts);
+      }
+    })();
+  }, []);
+
+  async function login() {
+    try {
+      let socialLogin = await initWallet();
+      if (!socialLogin.provider) {
+        socialLogin.showWallet();
+      } else {
+        setIsLogin(true);
+        const provider = new ethers.providers.Web3Provider(
+          socialLogin.provider
+        );
+        const accounts = await provider.listAccounts();
+        setConnectedAccount(accounts);
       }
     } catch (err) {
       alert(err.message);
@@ -63,7 +74,18 @@ function Header() {
               >
                 Connect Wallet
               </button>
-            ) : null}
+            ) : (
+              <div>
+                {connectedAccount && connectedAccount.length > 0 ? (
+                  <div>
+                    Connected to{" "}
+                    {connectedAccount[0].toString().slice(0, 4) +
+                      "..." +
+                      connectedAccount[0].toString().slice(-2)}
+                  </div>
+                ) : null}
+              </div>
+            )}
             <button
               onClick={toggle}
               className="px-6 py-2 font-normal text-xl leading-3 rounded"
