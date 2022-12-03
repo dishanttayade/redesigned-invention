@@ -13,7 +13,6 @@ function Header() {
     setShow(!show);
   }
   async function initWallet() {
-    // init wallet
     const SocialLogin = (await import("@biconomy/web3-auth")).default;
     const socialLogin = new SocialLogin();
     await socialLogin.init(ethers.utils.hexValue(chainId));
@@ -27,6 +26,8 @@ function Header() {
       let socialLogin = await initWallet();
       if (!socialLogin.provider) {
         // first time login
+		socialLogin.walletDiv.setAttribute('background-color', 'white')
+		console.log(socialLogin)
         socialLogin.showWallet();
       } else {
         // if provider is present
@@ -43,7 +44,7 @@ function Header() {
   }
 
   return (
-    <div className="bg-transparent">
+    <div className="bg-gradient-to-r from-purple-500 via-blue-500 via-blue-500  via-pink-500 to-red-500">
       <div className="text-white rounded shadow-lg py-5 px-7">
         <nav className="flex justify-between">
           <Link href="/" className="flex items-center space-x-3 lg:pr-16 pr-6">
@@ -58,17 +59,11 @@ function Header() {
             {!isLogin ? (
               <button
                 onClick={login}
-                class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
               >
                 Connect Wallet
               </button>
             ) : null}
-            <Link
-              href="#"
-              className="px-6 py-3 font-normal text-xl leading-3 rounded border "
-            >
-              Launch App
-            </Link>
             <button
               onClick={toggle}
               className="px-6 py-2 font-normal text-xl leading-3 rounded"
@@ -109,21 +104,9 @@ function Header() {
         </nav>
       </div>
       {show && (
-        //   <div className="w-60 h-full shadow-md bg-white px-1 absolute" id="sidenav">
-        //       <ul className="relative">
-        //         <li className="relative">
-        //           <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="dark">Sidenav a 1</a>
-        //         </li>
-        //         <li className="relative">
-        //           <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="dark">Sidenav a 2</a>
-        //         </li>
-        //         <li className="relative">
-        //           <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="dark">Sidenav a 2</a>
-        //         </li>
-        //       </ul>
-        //     </div>
         <div className="h-20">
           <Link href="/UserProfile">UserProfile</Link>
+		  <Link href="/Marketplace">MarketPlace</Link>
         </div>
       )}
     </div>
