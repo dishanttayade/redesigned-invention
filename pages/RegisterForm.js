@@ -1,21 +1,20 @@
 import { useState } from "react";
+// import NotLoggedIn from '../pages/components/NotLoggedIn'
+import Header from '../pages/components/Header'
 
 const RegisterForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [gstid, setGstid] = useState("");
+  const [file, setFile] = useState('')
 
   const formSubmit = () => {
 
   }
 
   return (
-    <section className="h-full gradient-form bg-gray-200 md:h-screen">
-      <div className="flex justify-center">
-        <button class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-          Connect Wallet
-        </button>
-      </div>
-  <div className="container py-12 px-6 h-full">
+    <section className="h-full gradient-form bg-orange-300 md:h-screen">
+              <Header />
+  <div className="container py-6 px-6 h-full">
     <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
       <div className="xl:w-10/12">
         <div className="block bg-white shadow-lg rounded-lg">
@@ -38,6 +37,7 @@ const RegisterForm = () => {
                       className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       id="exampleFormControlInput1"
                       placeholder="Name"
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -46,6 +46,7 @@ const RegisterForm = () => {
                       className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       id="exampleFormControlInput1"
                       placeholder="GST-ID"
+                      onChange={(e) => setGstid(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -62,7 +63,9 @@ const RegisterForm = () => {
                   <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                   <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload Brochure</span> or drag and drop</p>
                   </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
+                  <input id="dropzone-file" type="file" className="hidden" 
+                  onChange={(e)=>setFile(e.target.value)}
+                  />
                   </label>
                 </div> 
                   <div className="text-center pt-1 mb-12 pb-1">

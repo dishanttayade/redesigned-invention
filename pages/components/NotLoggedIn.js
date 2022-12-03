@@ -5,7 +5,7 @@ import Link from 'next/link'
 function Header(){
 
 	const [show, setShow] = useState(false);
-
+	
 	function toggle(){
 		setShow(!show)
 	}
@@ -18,9 +18,7 @@ function Header(){
 				<h2 className="font-normal text-2xl leading-6">TeamFiddly</h2>
 			</Link>
 		  <ul className="md:flex flex-end space-x-2">
-			<button class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-			Connect Wallet
-			</button>
+			<Link href="#" className="px-6 py-2 m-1 font-normal text-xl leading-3 rounded ">Token Sale</Link>
 			<Link href="#" className="px-6 py-3 font-normal text-xl leading-3 rounded border ">Launch App </Link>
 			<button onClick={toggle} className="px-6 py-2 font-normal text-xl leading-3 rounded">
 				{ !show ?
