@@ -5,6 +5,7 @@ import Link from 'next/link'
 function Header(){
 
 	const [show, setShow] = useState(false);
+	
 	function toggle(){
 		setShow(!show)
 	}

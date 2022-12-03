@@ -10,6 +10,11 @@ const RegisterForm = () => {
 
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">
+      <div className="flex justify-center">
+        <button class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+          Connect Wallet
+        </button>
+      </div>
   <div className="container py-12 px-6 h-full">
     <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
       <div className="xl:w-10/12">
@@ -74,9 +79,6 @@ const RegisterForm = () => {
               </div>
             </div>
             <div>
-              <button className="flex flex-right border btn-primary">
-                Connect Wallet
-              </button>
             </div>
           </div>
         </div>
