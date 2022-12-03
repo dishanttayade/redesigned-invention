@@ -1,12 +1,26 @@
 import { useState } from "react";
-// import NotLoggedIn from '../pages/components/NotLoggedIn'
+import { UploadFileToIPFS } from "./../utils/utils";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
   const [gstid, setGstid] = useState("");
   const [file, setFile] = useState("");
 
-  const formSubmit = () => {};
+  const onSubmit = async () => {
+    if (!name || !gstid || !file) return alert("provide all values first");
+
+    // interact with contract here
+
+    const builderAddress = process.env.BUILDER_ADDRESS;
+    console.log({ name, gstid, file });
+    const res = await UploadFileToIPFS({
+      file,
+      builder: 0,
+      name,
+      description: "broucher",
+    });
+    console.log(res);
+  };
 
   return (
     <section className="h-full gradient-form bg-orange-300 md:h-screen">
@@ -27,11 +41,7 @@ const RegisterForm = () => {
                         Join the application
                       </h4>
                     </div>
-                    <form
-                      method="POST"
-                      onSubmit={formSubmit}
-                      action="/ProjectNew"
-                    >
+                    <div>
                       <p className="mb-4">Sign up </p>
                       <div className="mb-4">
                         <input
@@ -51,14 +61,7 @@ const RegisterForm = () => {
                           onChange={(e) => setGstid(e.target.value)}
                         />
                       </div>
-                      <div className="mb-4">
-                        <input
-                          type="password"
-                          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                          id="exampleFormControlInput1"
-                          placeholder="Password"
-                        />
-                      </div>
+
                       <div className="flex items-center justify-center w-full">
                         <label
                           htmlFor="dropzone-file"
@@ -91,7 +94,7 @@ const RegisterForm = () => {
                             id="dropzone-file"
                             type="file"
                             className="hidden"
-                            onChange={(e) => setFile(e.target.value)}
+                            onChange={(e) => setFile(e.target.files[0])}
                           />
                         </label>
                       </div>
@@ -101,11 +104,12 @@ const RegisterForm = () => {
                           type="button"
                           data-mdb-ripple="true"
                           data-mdb-ripple-color="light"
+                          onClick={onSubmit}
                         >
                           Sign Up
                         </button>
                       </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
                 <div></div>
