@@ -5,6 +5,8 @@ const RealEstate = (props) => {
     // const Estate = props.description
     const estate =  {'id' : '123we', 'projectname' :'SomeName','location' :'The location over there', 'description': 'ygui9uygtfccguhiopijuyfdghjk' }
 
+    // const onclick = 
+
     const doesown = false
 
   return (
@@ -26,16 +28,17 @@ const RealEstate = (props) => {
                 </div>
                     <p>{estate.description}</p>
             </div>
-
         }
         </div>
         <div className='flex justify-around'>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded right-0 bottom-0">
-            Invest
-        </button>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded right-0 bottom-0">
-        Withdraw
-        </button>
+        <Link href='/Modal.js' >
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded right-0 bottom-0">
+                Invest
+            </button>
+        </Link>
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded right-0 bottom-0">
+            Withdraw
+            </button>
         </div>
     </div>
   )

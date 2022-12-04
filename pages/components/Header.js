@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Image } from "next/image";
 import Link from "next/link";
 import { ethers } from "ethers";
+import user from '../assets/builder-icon.svg'
 
 function Header() {
   const [show, setShow] = useState(false);
@@ -9,6 +10,10 @@ function Header() {
   const [isLogin, setIsLogin] = useState(false);
   const [socialLogin, setSocialLogin] = useState(null);
   const [chainId, setChainId] = useState(1);
+
+  const logout = () => {
+
+  }
 
   function toggle() {
     setShow(!show);
@@ -77,15 +82,22 @@ function Header() {
             ) : (
               <div>
                 {connectedAccount && connectedAccount.length > 0 ? (
-                  <div>
+                  <div className="px-6 py-2 ">
                     Connected to{" "}
                     {connectedAccount[0].toString().slice(0, 4) +
                       "..." +
                       connectedAccount[0].toString().slice(-2)}
+					<button
+					onClick={logout}
+					className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+					>
+					Logout
+				</button>
                   </div>
                 ) : null}
               </div>
             )}
+		{isLogin ? 
             <button
               onClick={toggle}
               className="px-6 py-2 font-normal text-xl leading-3 rounded"
@@ -121,15 +133,19 @@ function Header() {
                   ></path>
                 </svg>
               )}
-            </button>
+			
+            </button>:
+			null}
           </ul>
         </nav>
       </div>
       {show && (
-        <div className="h-20">
-          <Link href="/UserProfile">UserProfile</Link>
-		  <Link href="/Marketplace">MarketPlace</Link>
-        </div>
+
+        <div className="h-20 flex justify-center justify-around text-white text-xl p-6">
+          <Link onClick={()=>setShow(!show)} href="/UserProfile">UserProfile</Link>
+		  <Link onClick={()=>setShow(!show)}  href="/Marketplace">MarketPlace</Link>
+		  {/* <Link href="/Model">Model</Link> */}
+		</div>
       )}
     </div>
   );
