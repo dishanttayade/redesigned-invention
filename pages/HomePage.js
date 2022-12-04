@@ -9,9 +9,9 @@ const HomePage = () => {
     <div>
       <div className="bg-homebg h-screen bg-cover">
         <div className="flex place-content-center justify-between">
-          <ModelViewer  modelPath ={'http://127.0.0.1:5500/pages/assets/scene.gltf'} scale={3} />
+          {/* <ModelViewer  modelPath ={'http://127.0.0.1:5500/pages/assets/scene.gltf'} scale={3} /> */}
           <div className="grid place-content-center pr-20 pl-10 flex flex-col justify-around">
-           <div className="text-7xl p-10 text-center">
+            <div className="text-7xl p-10 text-center">
               Real Estate For Every Indian
             </div>
             <Link
