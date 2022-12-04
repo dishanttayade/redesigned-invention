@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Image } from "next/image";
 import Link from "next/link";
 import { ethers } from "ethers";
-import user from '../assets/builder-icon.svg'
+import Web3 from "web3";
+import user from "../assets/builder-icon.svg";
 
 function Header() {
   const [show, setShow] = useState(false);
@@ -11,9 +12,7 @@ function Header() {
   const [socialLogin, setSocialLogin] = useState(null);
   const [chainId, setChainId] = useState(1);
 
-  const logout = () => {
-
-  }
+  const logout = () => {};
 
   function toggle() {
     setShow(!show);
@@ -37,9 +36,40 @@ function Header() {
         );
         const accounts = await provider.listAccounts();
         setConnectedAccount(accounts);
+        await connectWithWeb3();
       }
     })();
   }, []);
+
+  const connectWithWeb3 = async () => {
+    const setWeb3 = (web3) =>
+      new Promise((resolve, reject) => {
+        try {
+          localStorage.setItem("web3", web3);
+          resolve(true);
+        } catch (err) {
+          reject(false);
+        }
+      });
+
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum);
+      try {
+        window.ethereum.enable().then(async () => {
+          await setWeb3(web3);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (window.web3) {
+      const web3 = new Web3(window.web3.currentProvider);
+      await setWeb3(web3);
+    } else {
+      console.log(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
+    }
+  };
 
   async function login() {
     try {
@@ -53,6 +83,7 @@ function Header() {
         );
         const accounts = await provider.listAccounts();
         setConnectedAccount(accounts);
+        await connectWithWeb3();
       }
     } catch (err) {
       alert(err.message);
@@ -87,65 +118,67 @@ function Header() {
                     {connectedAccount[0].toString().slice(0, 4) +
                       "..." +
                       connectedAccount[0].toString().slice(-2)}
-					<button
-					onClick={logout}
-					className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-					>
-					Logout
-				</button>
+                    <button
+                      onClick={logout}
+                      className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                    >
+                      Logout
+                    </button>
                   </div>
                 ) : null}
               </div>
             )}
-		{isLogin ? 
-            <button
-              onClick={toggle}
-              className="px-6 py-2 font-normal text-xl leading-3 rounded"
-            >
-              {!show ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 9h16.5m-16.5 6.75h16.5"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              )}
-			
-            </button>:
-			null}
+            {isLogin ? (
+              <button
+                onClick={toggle}
+                className="px-6 py-2 font-normal text-xl leading-3 rounded"
+              >
+                {!show ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 9h16.5m-16.5 6.75h16.5"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                )}
+              </button>
+            ) : null}
           </ul>
         </nav>
       </div>
       {show && (
-
         <div className="h-20 flex justify-center justify-around text-white text-xl p-6">
-          <Link onClick={()=>setShow(!show)} href="/UserProfile">UserProfile</Link>
-		  <Link onClick={()=>setShow(!show)}  href="/Marketplace">MarketPlace</Link>
-		  {/* <Link href="/Model">Model</Link> */}
-		</div>
+          <Link onClick={() => setShow(!show)} href="/UserProfile">
+            UserProfile
+          </Link>
+          <Link onClick={() => setShow(!show)} href="/Marketplace">
+            MarketPlace
+          </Link>
+          {/* <Link href="/Model">Model</Link> */}
+        </div>
       )}
     </div>
   );

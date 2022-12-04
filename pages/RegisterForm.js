@@ -7,36 +7,32 @@ const RegisterForm = () => {
   const [name, setName] = useState("");
   const [gstid, setGstid] = useState("");
   const [file, setFile] = useState("");
-  const [web3, setWeb3] = useState("");
-  const [connectWithWeb3, setConnectWithWeb3] = useState(false);
 
-  useEffect(() => {
-    if (!connectWithWeb3) return;
+  const [web3, setWeb3] = useState(null);
+  useEffect(async () => {
+    if (web3) return;
     if (window.ethereum) {
-      // Modern DApp browsers
       const web3 = new Web3(window.ethereum);
       try {
-        window.ethereum.enable().then(() => {
+        window.ethereum.enable().then(async () => {
           setWeb3(web3);
         });
       } catch (error) {
-        // User denied account access
         console.log(error);
       }
     } else if (window.web3) {
-      // Legacy dapp browsers
       const web3 = new Web3(window.web3.currentProvider);
       setWeb3(web3);
     } else {
-      // Non-dapp browsers
       console.log(
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
       );
     }
-  }, [connectWithWeb3]);
+  }, []);
 
-  useEffect(() => {
-    if (!web3) return;
+  const onSubmit = async () => {
+    if (!web3) return alert("web3 not defined");
+    if (!name || !gstid || !file) return alert("provide all values first");
     (async () => {
       const builderContractAddress = process.env.BUILDER_ADDRESS;
       const result = await UploadFileToIPFS({
@@ -47,13 +43,7 @@ const RegisterForm = () => {
       });
       const builder = new web3.eth.Contract(builderABI, builderContractAddress);
       await builder.methods.addBuilder(name, gstid, result.url);
-      setConnectWithWeb3(false);
     })();
-  }, [web3]);
-
-  const onSubmit = async () => {
-    if (!name || !gstid || !file) return alert("provide all values first");
-    setConnectWithWeb3(true);
   };
 
   return (
